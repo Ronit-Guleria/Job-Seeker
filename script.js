@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //Jump to Forms
     let btn = document.querySelectorAll(".button").forEach(btn =>{
         btn.addEventListener("click",()=>{
-            window.location.href="https://www.google.com";
+            window.location.href="application-form.html";
         })
     })
 
