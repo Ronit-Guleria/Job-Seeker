@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicaton Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">JobSeeker</a>
+            <ul class="nav-links">
+                <li class="navi"><a href="jobs.html">Jobs</a></li>
+                <li class="navi"><a href="profile.html">Profile</a></li>
+                <li class="navi"><a href="about.html">About</a></li>
+                <li class="navi"><a href="contact.html">Contact</a></li>
+                <li class="navi"><a href="dmca.html">DMCA</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content-container">
+        <form method="post"
+            action="https://script.google.com/macros/s/AKfycbxc19D9r7CvQLIIE_NPzwxrJEoen-NRSIxjP-M-FfSaTuFHlNxkX5yd6Ka5eUROjZzH/exec"
+            name="contact-form">
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <h1>Application
+                            Form</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="name">Full Name:</label></td>
+                    <td><input type="text" id="name" name="name" required></td>
+                </tr>
+                <tr>
+                    <td><label>Gender:</label></td>
+                    <td><input type="radio" id="male" name="gender" value="male">
+                        <label for="male">Male</label><br><br>
+                        <input type="radio" id="female" name="gender" value="female">
+                        <label for="female">Female</label><br><br>
+                        <input type="radio" id="other" name="gender" value="other">
+                        <label for="other">Other</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="DOB">DOB</label>
+                    </td>
+                    <td><input type="date" name="DOB" id="DOB" required></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td><input type="email" id="email" name="email" required></td>
+                </tr>
+                <tr>
+                    <td><label for="phone">Phone Number:</label></td>
+                    <td><input type="tel" id="phone" name="phone" pattern="\d{10}" maxlength="10"
+                            title="Enter a 10-digit phone number" required></td>
+                </tr>
+                <tr>
+                    <td><label for="resume">Upload Resume:</label></td>
+                    <td><input type="file" name="resume" id="file" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx">
+                    <img src="" alt="" height="40vh" width="50vw"></td>
+                </tr>
+                <tr>
+                    <td><label for="job">Select Job Role:</label></td>
+                    <td>
+                        <select id="job" name="job" style="height: 5vh; width: 33vw;">
+                            <option value="developer">Software Developer</option>
+                            <option value="ui/ux">UI/UX Designer</option>
+                            <option value="marketing">Digital Marketing Specialist</option>
+                            <option value="data analyst">Data Analyst</option>
+                            <option value="customer support">Customer Support Executive</option>
+                            <option value="content writer">Content Writer</option>
+                            <option value="sales">Sales Executive</option>
+                            <option value="graphic designer">Grapphic Designer</option>
+                            <option value="Network">Network Engineer</option>
+                            <option value="HR">HR Manager</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Address:</label></td>
+                    <td>
+                        <textarea name="address" id="Address"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5"><input type="submit" value="Submit" class="a"></td>
+                </tr>
+            </table>
+        </form>
+        <p>By clicking <b>Submit</b>, you agree to our <b class="pol">User Agreement</b> and <b class="pol">Privacy Policy.</b></p>
+    </div>
+    <footer>
+        Made with ❤️ by Ronit Guleria
+    </footer>
+    <script src="sheet.js"></script>
+    <script>
+        let url = "https://script.google.com/macros/s/AKfycbxc19D9r7CvQLIIE_NPzwxrJEoen-NRSIxjP-M-FfSaTuFHlNxkX5yd6Ka5eUROjZzH/exec";
+        let file = document.querySelector("#file");
+        let img = document.querySelector("img");
+        file.addEventListener('change', () => {
+          let fr = new FileReader();
+          fr.addEventListener('loadend', () => {
+            let res = fr.result;
+            img.src = res;
+            let spt = res.split("base64,")[1];
+            // console.log(spt);
+            let obj = {
+              base64: spt,
+              type: file.files[0].type,
+              name: file.files[0].name
+            }
+            fetch(url, {
+              method: "POST",
+              body: JSON.stringify(obj)
+            })
+              .then(r => r.text())
+              .then(data => console.log(data))
+          })
+          fr.readAsDataURL(file.files[0])
+        })
+      </script>
+</body>
+</html>
